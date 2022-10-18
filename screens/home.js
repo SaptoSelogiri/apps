@@ -25,7 +25,9 @@ export default function home(){
 
     return(
         <View style={styles.container}>
-            
+            <View style ={styles.header}>
+                <Text style={styles.word}>SELAMAT DATANG</Text>
+            </View>
             {Menu.map((item)=>{
                 return(
                     <TouchableOpacity key={item.key} onPress={()=>eventHandle(item.name)}>
@@ -46,12 +48,23 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:'orange',
-        padding : 60
+        padding : 50
     },
     item:{
-        padding : 30,
+        padding : 25,
         marginTop: 30,
         backgroundColor: '#ccc',
         fontSize: 30
+    },
+    header :{
+        width:350,
+        alignItems :'center',
+        alignSelf :'center',
+        padding: 10,
+        backgroundColor: '#ADD8E6',
+    },
+    word:{
+        fontWeight:'bold',
+        fontSize : 30
     }
 });

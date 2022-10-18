@@ -25,8 +25,8 @@ function tostring(input,output){
 var arr_S =[];
 tostring(arr,arr_S);
 const presshandler =()=>{
-    tostring(arr,arr_S);
     shuffle(arr)
+    tostring(arr,arr_S);
     /*for(var i=0;i<arr_S.length;i++){
     return (
         shuffle(arr)
@@ -39,7 +39,16 @@ const erase =(key)=>{
         return prev.filter(angka => angka.id != key)
     })
 }
-
+ var asr =[];
+const id_data = (id) =>{
+    shuffle(arr)
+    for(var i=0;i<arr.length;i++){
+        if(id==arr[i]){
+           // var temp =arr[i]
+           return asr[i] = arr_S[i]
+        }
+    }
+}
 
 var [angka,setAngka]= useState ([
     {name:'2',id:'1'},
@@ -58,21 +67,21 @@ var [angka,setAngka]= useState ([
 return(
     <View style={styles.boxs}>
         <FlatList
-        numColumns={2}
-        keyExtractor={(item)=> item.id}
-        data ={angka}
-        renderItem={({item}) =>(
-            <TouchableOpacity onPress={()=> erase(item.id)}>
+            numColumns={3}
+            //keyExtractor={(item)=>item.id}
+            data={angka}
+            renderItem={({item})=>(
                 <Text style={styles.item}>{item.id}</Text>
-            </TouchableOpacity>
-        )}
-        />        
+            )}
+        />     
         <Text>{arr_S}</Text>
-        <Button
-        style ={styles.item}
-        title="scrambel"
-        onPress={()=> presshandler()}
-        />
+        <Text> {asr}</Text>
+        <View style={styles.tombol}>
+            <Button
+            title="scrambel"
+            onPress={()=> shuffle(arr)}
+            />
+        </View>
     </View>
 )
 
@@ -88,7 +97,7 @@ const styles = StyleSheet.create({
         
     },
    item :{
-    marginTop: 24,
+    marginTop: 30,
     padding: 16,
     backgroundColor:'#fff',
     fontSize:30,
@@ -97,6 +106,7 @@ const styles = StyleSheet.create({
     marginStart:40
    },
    tombol :{
+    
     backgroundColor : '#fff',
     padding: 15,
    }
