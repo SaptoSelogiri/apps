@@ -38,26 +38,23 @@ const erase =(key)=>{
     setAngka((prev) =>{
         return prev.filter(angka => angka.id != key)
     })
+    id_data(key)
 }
  var asr =[];
 const id_data = (id) =>{
     shuffle(arr)
-    for(var i=0;i<arr.length;i++){
-        if(id==arr[i]){
-           // var temp =arr[i]
-           return asr[i] = arr_S[i]
-        }
-    }
+    asr =(()=>{ return asr.push(id)})
+       
 }
 
 var [angka,setAngka]= useState ([
-    {name:'2',id:'1'},
-    {name:'4',id:'11'},
-    {name:'6',id:'3'},
-    {name:'1',id:'4'},
-    {name:'7',id:'5'},
-    {name:'0',id:'6'},
-    {name:'7',id:'7'},
+    {name:'2',id:"1"},
+    {name:'4',id:"11"},
+    {name:'6',id:"3"},
+    {name:'1',id:"4"},
+    {name:'7',id:"5"},
+    {name:'0',id:"6"},
+    {name:'7',id:"7"},
     {name:'71',id:'8'},
     {name:'91',id:'9'},
     {name:'13',id:'0'},
@@ -66,14 +63,17 @@ var [angka,setAngka]= useState ([
 
 return(
     <View style={styles.boxs}>
-        <FlatList
+       <FlatList
             numColumns={3}
-            //keyExtractor={(item)=>item.id}
+            //listKey  
+            keyExtractor={(item)=>item.name}
             data={angka}
             renderItem={({item})=>(
-                <Text style={styles.item}>{item.id}</Text>
+                <TouchableOpacity onPress={()=>erase(item.id)}>
+                    <Text style={styles.item}>{item.id}</Text>
+                </TouchableOpacity>
             )}
-        />     
+       />
         <Text>{arr_S}</Text>
         <Text> {asr}</Text>
         <View style={styles.tombol}>

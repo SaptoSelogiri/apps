@@ -9,7 +9,7 @@ const aray=[1,2,3,4,5,6,7,8,9,0];
 asd(aray);
 
 
-
+var ars=[]
 function sufled(arr){
     var curren =arr.length , rand;
      while(curren !=0){
@@ -19,7 +19,7 @@ function sufled(arr){
         [arr[curren],arr[rand]] = [arr[rand],arr[curren]]
      }
 }
-sufled(aray)
+sufled(aray);
 function tostring(input,output){
     var long = input.length ,i=0;
     for(i ;i<long;i++){
@@ -29,3 +29,12 @@ function tostring(input,output){
 var otuput =[];
 tostring(aray,otuput);
 console.log(otuput);
+function pushA(key){
+    ars.push(key)
+}
+pushA(23)
+const dominan =(ou)=>{
+    console.log(otuput);
+    pushA(ou)
+}
+dominan(10);

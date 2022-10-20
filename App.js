@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Home from './screens/home'
-import Game from './screens/game'
+import Home from './screens/home';
+import Game from './screens/game';
+import Navi from './routes/homeStack';
 
 export default function App() {
+  const state_1 =true;
   return (
-
-    <Game/>
+    <Navi/>
+   //<Game/>
    //<Home/>
     
     

@@ -1,11 +1,12 @@
 import React ,{ useState} from "react";
-import { StyleSheet, View, Text, Alert, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, Text, Alert, TouchableOpacity, Button} from 'react-native';
+import game from "./game";
 
 
 
 
 
-export default function home(){
+export default function home({navigation}){
 
   const [Menu,setMenu] = useState ([
     {name:'Mulai',key:'1'},
@@ -17,10 +18,11 @@ export default function home(){
        return Alert.alert('alert','text '+ prop +' telah ditekan')
     }
 
-    const erase =(key) =>{
-        setMenu((prev) =>{
-            return prev.filter(Menu => Menu.key !=key)
-        })
+    const pressHandler =() =>{
+        navigation.navigate('Top_Score');
+    }
+    const eventPressComponent =(prop)=>{
+        navigation.navigate(prop)
     }
 
     return(
@@ -30,7 +32,7 @@ export default function home(){
             </View>
             {Menu.map((item)=>{
                 return(
-                    <TouchableOpacity key={item.key} onPress={()=>eventHandle(item.name)}>
+                    <TouchableOpacity key={item.key} onPress={()=>eventPressComponent(item.name)}>
                          <View>
                             <Text style={styles.item}>{item.name}</Text>
                         </View>
@@ -38,6 +40,10 @@ export default function home(){
                    
                 )  
             })}
+            <Button 
+            title="game"
+            onPress={()=>pressHandler()}
+            />
         </View>
         
     );
@@ -60,8 +66,9 @@ const styles = StyleSheet.create({
         width:350,
         alignItems :'center',
         alignSelf :'center',
-        padding: 10,
-        backgroundColor: '#ADD8E6',
+        marginTop:5
+        //padding: 10,
+       // backgroundColor: '#ADD8E6',
     },
     word:{
         fontWeight:'bold',
