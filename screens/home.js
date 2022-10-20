@@ -27,10 +27,11 @@ export default function home({navigation}){
 
     return(
         <View style={styles.container}>
-            <View style ={styles.header}>
-                <Text style={styles.word}>SELAMAT DATANG</Text>
+            <View style={styles.header}>
+                 <Text style={styles.word}>SELAMAT DATANG</Text>
             </View>
-            {Menu.map((item)=>{
+            <Card>
+                {Menu.map((item)=>{
                 return(
                     <TouchableOpacity key={item.key} onPress={()=>eventPressComponent(item.name)}>
                          <View>
@@ -39,7 +40,8 @@ export default function home({navigation}){
                     </TouchableOpacity>
                    
                 )  
-            })}
+                })}
+            </Card>
             <Button 
             title="game"
             onPress={()=>pressHandler()}
@@ -49,12 +51,20 @@ export default function home({navigation}){
     );
 }
 
+ export function Card(propS){
+    return(
+        <View style={styles.padd}>
+            {propS.children}
+        </View>
+    )
+}
+
 
 const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:'orange',
-        padding : 50
+        //padding : 50
     },
     item:{
         padding : 25,
@@ -66,12 +76,16 @@ const styles = StyleSheet.create({
         width:350,
         alignItems :'center',
         alignSelf :'center',
-        marginTop:5
-        //padding: 10,
+        marginTop:5,
+        paddingTop: 10,
        // backgroundColor: '#ADD8E6',
     },
     word:{
         fontWeight:'bold',
         fontSize : 30
+    },
+    padd:{
+        padding:50,
+        paddingTop:10,
     }
 });

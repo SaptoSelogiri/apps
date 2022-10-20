@@ -6,10 +6,7 @@ const asd = (aray) =>{
     }
 }
 const aray=[1,2,3,4,5,6,7,8,9,0];
-asd(aray);
 
-
-var ars=[]
 function sufled(arr){
     var curren =arr.length , rand;
      while(curren !=0){
@@ -26,15 +23,23 @@ function tostring(input,output){
         output[i]=input[i] + '';
     }
 }
-var otuput =[];
+const otuput =[];
 tostring(aray,otuput);
 console.log(otuput);
+const aris=[1];
+console.log(aris);
 function pushA(key){
-    ars.push(key)
+    aris.push(key);
+    console.log(aris);
 }
-pushA(23)
+pushA(23);
 const dominan =(ou)=>{
+    otuput.push(ou);
     console.log(otuput);
-    pushA(ou)
+    pushA(ou);
+    aris.push(ou);
+ 
 }
+console.log(aris);
 dominan(10);
+console.log(aris);

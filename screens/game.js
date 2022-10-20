@@ -35,16 +35,16 @@ const presshandler =()=>{
 }
 
 const erase =(key)=>{
+    id_data(key); ///pemanggilan fungsi ini masih tidak bisa..
     setAngka((prev) =>{
         return prev.filter(angka => angka.id != key)
     })
-    id_data(key)
+    
 }
- var asr =[];
-const id_data = (id) =>{
-    shuffle(arr)
-    asr =(()=>{ return asr.push(id)})
-       
+ var asr =[23,11];
+function id_data(id){
+    shuffle(arr);
+    asr.push(id)
 }
 
 var [angka,setAngka]= useState ([
@@ -66,11 +66,13 @@ return(
        <FlatList
             numColumns={3}
             //listKey  
-            keyExtractor={(item)=>item.name}
+            keyExtractor={(item)=>item.id}
             data={angka}
             renderItem={({item})=>(
                 <TouchableOpacity onPress={()=>erase(item.id)}>
-                    <Text style={styles.item}>{item.id}</Text>
+                    <View style={styles.nomor}>
+                        <Text style={styles.item}>{item.id}</Text>
+                    </View>
                 </TouchableOpacity>
             )}
        />
@@ -93,22 +95,36 @@ const styles = StyleSheet.create({
     boxs:{
         flex: 1,
         backgroundColor:'pink',
-        margin:5
+        margin:5,
+        //alignItems:'stretch',
         
     },
    item :{
-    marginTop: 30,
-    padding: 16,
-    backgroundColor:'#fff',
-    fontSize:30,
-    marginHorizontal:35,
-    marginLeft:30,
-    marginStart:40
+    flex:1,
+    //justifyContent:'center',
+    alignItems:'center',
+    fontSize:40,
+    borderWidth:2,
+    borderColor:'red'
+    
    },
    tombol :{
-    
     backgroundColor : '#fff',
     padding: 15,
+    borderWidth:2,
+    borderColor:'grey'
+   },
+   nomor:{
+    flex: 1,
+    flexWrap:'row',
+    alignItems:'center',
+    justifyContent:'center', //flexDirection:'row',
+    backgroundColor:'#fff',
+    borderWidth:2,
+    borderColor:'blue',
+    width:121,
+    height: 100
+    
    }
 });
 
