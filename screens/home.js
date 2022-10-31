@@ -1,6 +1,6 @@
 import React ,{ useState} from "react";
 import { StyleSheet, View, Text, Alert, TouchableOpacity, Button} from 'react-native';
-import game from "./game";
+//import game from "./game";
 
 
 
@@ -67,10 +67,14 @@ const styles = StyleSheet.create({
         //padding : 50
     },
     item:{
-        padding : 25,
-        marginTop: 30,
-        backgroundColor: '#ccc',
-        fontSize: 30
+        padding : 20,
+        borderColor:'grey',
+        borderWidth:4,
+        borderRadius:15,
+        marginTop: 25,
+        //backgroundColor: '#ccc',
+        fontSize: 30,
+        alignItems:'center'
     },
     header :{
         width:350,
@@ -78,6 +82,7 @@ const styles = StyleSheet.create({
         alignSelf :'center',
         marginTop:5,
         paddingTop: 10,
+        
        // backgroundColor: '#ADD8E6',
     },
     word:{
@@ -85,7 +90,7 @@ const styles = StyleSheet.create({
         fontSize : 30
     },
     padd:{
-        padding:50,
+        padding:40,
         paddingTop:10,
     }
 });

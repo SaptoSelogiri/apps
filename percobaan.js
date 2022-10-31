@@ -1,13 +1,15 @@
+
+
+
 const asd = (aray) =>{
     for(var i=0;i>aray.length-1;i--){
         var j = Math.floor(Math.random()*(i+1));
-        var temp = aray[i];
         [aray[i],aray[j]] = [aray[j],aray[i]];
     }
 }
 const aray=[1,2,3,4,5,6,7,8,9,0];
 
-function sufled(arr){
+const sufled =(arr)=>{
     var curren =arr.length , rand;
      while(curren !=0){
         rand=Math.floor(Math.random()*curren);
@@ -40,6 +42,14 @@ const dominan =(ou)=>{
     aris.push(ou);
  
 }
-console.log(aris);
-dominan(10);
-console.log(aris);
+async function sasa(){
+    await new Promise((resolve => {
+        dominan(29)
+        resolve()
+    }))
+    await new Promise((resolve =>{
+        
+    }))
+    console.log('selesai')
+}
+sasa();
