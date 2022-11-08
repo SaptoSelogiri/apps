@@ -20,12 +20,12 @@ const screens = {
         }
     },
     
-    Top_Score:{
+    "Top Score":{
         screen : Score
     },
-    /*about:{
+    'About Game':{
         screen:About_
-    }*/
+    }
 }
 
 const home =  createStackNavigator(screens,{

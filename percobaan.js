@@ -52,4 +52,6 @@ async function sasa(){
     }))
     console.log('selesai')
 }
-sasa();
+var ee = [2,3,4,5,4];
+const e2 =[ee,ee,ee]
+console.log(e2)

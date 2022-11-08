@@ -1,9 +1,9 @@
 import React,{ useState, useEffect, useCallback }from "react";
-import { StyleSheet,View , Text,TouchableOpacity, FlatList,Button, Alert} from "react-native";
+import { StyleSheet,View , Text,TouchableOpacity, FlatList,Button, Alert,Modal} from "react-native";
+import { Timer } from "react-native-stopwatch-timer";
 
 
-
-export default function game(){
+export default function game(navigation){
     const [status,setstarus] = useState (0)
    // const stat =()=>{setstarus((prev)=> {return prev +=1})}
     const loopAray = (aray) =>{
@@ -65,10 +65,7 @@ export default function game(){
     
     
     const [salah,setSalah] = useState ([])
-    async function ubah(){//const ubah = () =>{
-        await new Promise(solve =>{
-            solve(setSalah(()=>{return []}))
-        })//setSalah(()=>{return []})
+    async function ubah(){
         if (score.length>=15){
             var mm =0 , banding = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
             for (var i =0; i<score.length;i++){
@@ -106,13 +103,47 @@ export default function game(){
         setScore(()=>{return []})
     }
 
+    const [time,setTime] = useState(true)
+    const [riset,setRiset] = useState(false)
+    const [howLong,setLong] = useState(60000)
+    const [modalOn,setModal]= useState(false)
+    
+    const timerOff =()=>{
+        setTime(false)
+        setModal(true)
+    }
+
+    const closeModal =()=>{
+        navigation.navigate('home')
+    }
 
     return(
         <View style={styles.boxs}>
-            <View style ={styles.kortakScore}>
-                <Text style={{fontSize:20}} > Score anda ={nilai} {salah}</Text>
+            <Modal visible = {modalOn} animationType='fade'>
+                <View style={{...styles.boks3,...{flex:1/3}}}>
+                    <View style={styles.konten}>
+                        <Text > Lorem Ipsum. Dis Amori</Text>
+                        <Text > Lorem Ipsum. Dis Amori</Text>
+                        <Text > Lorem Ipsum. Dis Amori</Text>
+                        <Text > Lorem Ipsum. Dis Amori</Text>
+                    </View> 
+                    <View style={styles.tombol}>
+                        <Button
+                        title='Close'
+                        onPress={()=>setModal(false)}/>
+                    </View>
+                </View>
+            </Modal>
+            <View style ={styles.boks1}>
+                <Timer
+                start ={time}
+                reset={riset}
+                totalDuration ={howLong}
+                options={options}
+                handleFinish={()=>timerOff()}
+                />
             </View>
-            <View style={styles.kotakcenter}>
+            <View style={styles.boks2}>
                 <FlatList
                     numColumns={3}
                     //listKey  
@@ -127,14 +158,16 @@ export default function game(){
                     )}
                />
             </View>
-            <View style={styles.tombol}>
-                <Button
-                title="scrambel"
-                onPress={()=>ubah()}
-                />
-                <Button
-                title="score"
-                onPress={()=>nilai()}/>
+            <View style={styles.boks3}>
+                <View style={styles.tombol}>
+                    <Button
+                    title="scrambel"
+                    onPress={()=>ubah()}
+                    />
+                </View>
+                <View style={styles.konten}>
+                    <Text style={{fontSize:20}} > Score anda ={nilai} </Text>
+                </View>
             </View>
         </View>
     )
@@ -149,49 +182,71 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor:'pink',
         margin:5,
-        alignItems:'center',
+       // alignItems:'center',
         //width:'100%'
     },
-   item :{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center', 
-    textAlign : 'center',
-    fontSize:50,
-    top: 15
-    
-   },
-   tombol :{
-    backgroundColor : '#fff',
-    padding: 15,
-    borderWidth:2,
-    borderColor:'grey',
-    position:'absolute',
-    bottom:0,
-    borderRadius:10,
-    flexDirection:'row',
-   },
-   nomor:{
-    flex: 1,
-    alignItems:'center',
-    backgroundColor:'#fff',
-    borderWidth:2,
-    borderColor:'blue', //borderRadius
-    width:121.5,
-    height: 100,
-    
-    
-   },
-   kotakcenter:{
-    //top :5,
-    width:'100%',
-    height:500
-    //alignItems:'center',
-   },
-   kortakScore:{
-    backgroundColor:'#ccc',
-    height:30,
-    width: '100%',
-   }
+    boks1:{
+         backgroundColor:'#ccc',
+         height:30,
+         width: '100%',
+    },
+    boks2:{
+        width:'100%',
+        height:500
+        //alignItems:'center',
+    },
+    boks3:{
+        flex:1,
+        flexDirection:'row',
+        //borderColor:'green',
+        //borderWidth:2,
+        //alignItems:'center'
+    },
+    nomor:{
+        flex: 1,
+        alignItems:'center',
+        backgroundColor:'#fff',
+        borderWidth:2,
+        borderColor:'blue', //borderRadius
+        width:121.5,
+        height: 100,    
+    },
+    item :{
+         flex:1,
+         justifyContent:'center',
+         alignItems:'center', 
+         textAlign : 'center',
+         fontSize:50,
+         top: 15
+    },
+    tombol :{
+        flex:1,
+        backgroundColor : '#fff',
+        padding: 15,
+        borderWidth:2,
+        borderColor:'grey',
+        borderRadius:10,
+        margin:5
+       // position:'absolute',
+       // bottom:0,
+        //flexDirection:'row',
+    },
+    konten:{
+        flex:2,
+        margin:5,
+        borderColor:'blue',
+        borderWidth:2,
+        borderRadius:10
+    }
 });
 
+const options ={
+    container :{
+        alignItems:'center'
+    },
+    text:{
+        fontSize:25,
+        color:'black',
+        marginLeft:7
+    }
+};
