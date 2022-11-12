@@ -1,9 +1,14 @@
-import React,{ useState, useEffect, useCallback }from "react";
-import { StyleSheet,View , Text,TouchableOpacity, FlatList,Button, Alert,Modal} from "react-native";
+import React,{ useState, useEffect, useCallback,useRef }from "react";
+import { StyleSheet,View , Text,TouchableOpacity, FlatList,Button, Alert,Modal, Animated} from "react-native";
 import { Timer } from "react-native-stopwatch-timer";
+import DataJson from "../routes/score.json"
+import { Axios } from "axios";
+//import { useRef } from "react/cjs/react.production.min";
+//  import { Dropdown } from "react-native-material-dropdown";
+//import * as fs from "@expo/json-file"
 
 
-export default function game(navigation){
+export default function game({navigation}){
     const [status,setstarus] = useState (0)
    // const stat =()=>{setstarus((prev)=> {return prev +=1})}
     const loopAray = (aray) =>{
@@ -105,7 +110,7 @@ export default function game(navigation){
 
     const [time,setTime] = useState(true)
     const [riset,setRiset] = useState(false)
-    const [howLong,setLong] = useState(60000)
+    const [howLong,setLong] = useState (5000)//(60000)
     const [modalOn,setModal]= useState(false)
     
     const timerOff =()=>{
@@ -113,27 +118,10 @@ export default function game(navigation){
         setModal(true)
     }
 
-    const closeModal =()=>{
-        navigation.navigate('home')
-    }
+   
 
     return(
         <View style={styles.boxs}>
-            <Modal visible = {modalOn} animationType='fade'>
-                <View style={{...styles.boks3,...{flex:1/3}}}>
-                    <View style={styles.konten}>
-                        <Text > Lorem Ipsum. Dis Amori</Text>
-                        <Text > Lorem Ipsum. Dis Amori</Text>
-                        <Text > Lorem Ipsum. Dis Amori</Text>
-                        <Text > Lorem Ipsum. Dis Amori</Text>
-                    </View> 
-                    <View style={styles.tombol}>
-                        <Button
-                        title='Close'
-                        onPress={()=>setModal(false)}/>
-                    </View>
-                </View>
-            </Modal>
             <View style ={styles.boks1}>
                 <Timer
                 start ={time}
@@ -169,13 +157,84 @@ export default function game(navigation){
                     <Text style={{fontSize:20}} > Score anda ={nilai} </Text>
                 </View>
             </View>
+            <ModalScore status ={modalOn} close={setModal} navigation={navigation} score={nilai} datas={DataJson}></ModalScore>
         </View>
     )
 }
 
 
+ const ModalScore =({status,close ,navigation, score, datas}) =>{
+    const closeModal =(close)=>{
+        //close(false)
+        navigation.pop()
+    }
+    const [dataSet,setData] = useState([{item:{}}])
 
+   
+    const fadeAnime = new Animated.Value(0)
+    const [on,setOn] = useState(0)
+    
+    useEffect(()=>{
+        var x = on%2
+        Animated.timing(fadeAnime,{toValue:x,opacity:1000,useNativeDriver:false}).start()
+        
+    })
+    const getData = async ()=>{
+        try {
+            Axios.get('http://172.20.10.7:9000/user/')
+            .then(result=>{setData(result)})
+            
+        } catch (error) {
+        Alert.alert('eror')    
+        }
+    }
+    const getget =()=>{
+        fetch('http://localhost:3000/user')
+        .then(respon=>respon.json())
+        .then(json=> {setData(json)})
+        .catch(error=>{Alert.alert('error')})
+    }
+    return(
+        <Modal visible ={status} animationType='fade'>
+        <View style={{flex:3/4, top:50, opacity:'50%'}}>
+            <View style={{flex:2/3}}>
+                <View style={styleModal.conten}>
+                    <Text style={{fontSize:30}}> SELAMAT</Text>
+                    <Text style={{fontSize:15}}> ANDA BERHASIL MENYELASIKAN {score} RONDE</Text>
+                    <Text > Anda mau menyimpan score ini?</Text>
+                    <Text > lorem ipsum         {on%2}</Text>
+                </View> 
+                <View style={styleModal.tombol}>
+                    <Button title='Simpan' onPress={()=>getData()}/>
+                    <Button title='Home' onPress={()=>closeModal(close)}/>
+                </View>
+            </View>
+            <Button title={!(on%2)? 'Wall Of Fame':'Tutup'} onPress={()=>setOn((prev)=>{return prev += 1})}/>
+            <Animated.View style={[{flex:1/3, backgroundColor:'powderblue'},{opacity:fadeAnime}]}>
+                {dataSet.map((item)=>{
+                    return(
+                        <Text>{item.name}   {item.score}</Text>
+                    )
+                })}
+            </Animated.View>
+            
+        </View>
+    </Modal>
+    )
+}
 
+const styleModal = StyleSheet.create({
+    conten:{
+        flex:2,
+
+    },
+    tombol:{
+        flex:1/2,
+        flexDirection:'row',
+        justifyContent:'space-around'
+        
+    }
+})
 
 const styles = StyleSheet.create({
     boxs:{

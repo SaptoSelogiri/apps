@@ -1,5 +1,5 @@
 import react from "react";
-import {View, StyleSheet} from "react-native"
+import {View, StyleSheet,Text} from "react-native"
 import { ease } from "react-native/Libraries/Animated/Easing";
 
 export default function about(){
@@ -11,29 +11,33 @@ export default function about(){
             </View>
         )
     }
-    const taba =()=>{
+    const Taba =()=>{
         return(
             <View>
-                 {ae.map(()=>{
-                    return( <View style={styles.border}></View>)
+                 {ae.map((item)=>{
+                    return( <View style={styles.kotakKecil}>
+                        <Text>{item}</Text>
+                    </View>)
                  })}
             </View>
         )
     }
-    const metrik = [taba(),taba(),taba]
+    const metrik = [{ae},{ae},{ae}]
 
     return(
         <View style={styles.container}>
           {metrik.map((item)=>{
             return(
-                <View style={ styles.border}></View>
+                <View style={ styles.border}>
+                    <Taba/>
+                </View>
             )
           })}
         </View>
     )
 };
 
-export function Tabel (){
+function Tabel (){
     const arr =[1,2,3,4,5,6]
     var abab = true
     const ar3 =[1,2,3]
@@ -72,6 +76,14 @@ const styles = StyleSheet.create({
     border:{
         flex:1,
         borderColor:'red',
-        borderWidth:3
+        //borderWidth:3
+    },
+    kotakKecil:{
+        borderBottomWidth:1,
+        borderColor:'blue',
+        justifyContent:'center',
+        padding:5,
+        height:'16.6667%' /// 100% /6 bagian... dapatnya itu...
+
     }
 })

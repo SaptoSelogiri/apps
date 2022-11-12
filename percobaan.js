@@ -55,3 +55,27 @@ async function sasa(){
 var ee = [2,3,4,5,4];
 const e2 =[ee,ee,ee]
 console.log(e2)
+const fs = require('fs');
+fs.readFile('./routes//score.json',(err,data)=>{
+    if(err)throw err;
+    var word = JSON.parse(data);
+    console.log(word);
+});
+const dat={
+    name:'samp',
+    score:'33'
+};
+var data =JSON.stringify(dat,null,2);
+
+async function fect(){
+    await new Promise(()=>{
+        fs.readFile('./routes//score.json',(err,data)=>{
+            if(err)throw err;
+            var word = JSON.parse(data);
+            console.log(word);
+        });
+    })
+    fs.writeFile('./routes/score.json',data,(err)=>{if(err)throw err});
+    console.log('data masuk');
+
+}
