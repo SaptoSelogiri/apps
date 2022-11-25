@@ -40,7 +40,7 @@ export const UserList = ({List,height,width})=>{
         </View>
     )
 }
-export const Card_user = ({heightC,widthC,Name,Score})=>{  
+export const Card_user = ({heightC,widthC,Name,Score})=>{       ///card tiap user
     return(
         <View style={{flexDirection:"row", width:widthC,height:(heightC-8),margin:10}}>
             <View style={{ backgroundColor:'#eee' ,justifyContent:'center', borderRadius:10, flex:1,top:3}}>
