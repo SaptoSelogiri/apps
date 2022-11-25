@@ -1,8 +1,10 @@
 import React,{ useState, useEffect, useCallback,useRef }from "react";
-import { StyleSheet,View , Text,TouchableOpacity, FlatList,Button, Alert,Modal, Animated} from "react-native";
+import { StyleSheet,View , Text,TouchableOpacity, FlatList,Button, Alert,Modal, Animated, ScrollView} from "react-native";
 import { Timer } from "react-native-stopwatch-timer";
 import DataJson from "../routes/score.json"
 import { Axios } from "axios";
+import { UserList } from "./modal";
+//import { ScrollView } from "react-native-gesture-handler";
 //import { useRef } from "react/cjs/react.production.min";
 //  import { Dropdown } from "react-native-material-dropdown";
 //import * as fs from "@expo/json-file"
@@ -168,7 +170,7 @@ export default function game({navigation}){
         //close(false)
         navigation.pop()
     }
-    const [dataSet,setData] = useState([{item:{}}])
+    const [dataSet,setData] = useState([{datas}])
 
    
     const fadeAnime = new Animated.Value(0)
@@ -210,12 +212,10 @@ export default function game({navigation}){
                 </View>
             </View>
             <Button title={!(on%2)? 'Wall Of Fame':'Tutup'} onPress={()=>setOn((prev)=>{return prev += 1})}/>
-            <Animated.View style={[{flex:1/3, backgroundColor:'powderblue'},{opacity:fadeAnime}]}>
-                {dataSet.map((item)=>{
-                    return(
-                        <Text>{item.name}   {item.score}</Text>
-                    )
-                })}
+            <Animated.View style={[{flex:1, },{opacity:fadeAnime}]}>
+                <ScrollView style={{left:20}}>
+                    <UserList List={datas}/>
+                </ScrollView>
             </Animated.View>
             
         </View>
@@ -226,6 +226,9 @@ export default function game({navigation}){
 const styleModal = StyleSheet.create({
     conten:{
         flex:2,
+        borderWidth:2,
+        borderColor:'black',
+        left:10
 
     },
     tombol:{
