@@ -5,12 +5,15 @@ import Home from '../screens/home';
 import Game from '../screens/game';
 import Score from  '../screens/score';
 import About_ from '../screens/about';
+import testing from "../screens/testing";
+import Kopp from "../screens/kopyokan";
 
 const screens = {
     home:{
         screen : Home,
       navigationOptions:{
-        title :'HOME'
+        title:'',
+        headerStyle :{ backgroundColor:'orange',height: 40}
       }    
     },
     Mulai:{
@@ -25,6 +28,12 @@ const screens = {
     },
     'About Game':{
         screen:About_
+    },
+    'test_layout':{
+        screen:testing
+    },
+    'Setting':{
+        screen: Kopp
     }
 }
 

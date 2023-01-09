@@ -112,7 +112,7 @@ export default function game({navigation}){
 
     const [time,setTime] = useState(true)
     const [riset,setRiset] = useState(false)
-    const [howLong,setLong] = useState (5000)//(60000)
+    const [howLong,setLong] = useState (60000)
     const [modalOn,setModal]= useState(false)
     
     const timerOff =()=>{

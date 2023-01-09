@@ -1,5 +1,5 @@
 import react, { useCallback, useEffect, useState } from "react";
-import {View, StyleSheet,Text} from "react-native"
+import {View, StyleSheet,Text, Animated} from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ease } from "react-native/Libraries/Animated/Easing";
 
@@ -14,14 +14,23 @@ export default function about(){
        //7 setStatus(!status)
         setHitung((prev)=>{return prev += 1})
        }
-       useEffect(()=>{
-        setStatus(!status)
-       },[hitung])
+       const animations = new Animated.Value(1)
+
+       const anima =()=>{
+        Animated.timing(animations,{toValue:2,duration:1500,useNativeDriver:false}).start()
+       }
+       const anime ={
+        transform:[
+            {scale:animations}
+        ]
+       }
        return(<View>
          {ae.map((item)=>{
              return( <View key ={item} style={!(ae.indexOf(item)% 2)? styles.boxGelap:styles.boxTerang}>
-                <TouchableOpacity key={item} onPress={()=>ubah()}>
-                    <Text style={{fontSize:30,padding:'30%',}}>{item}</Text>
+                <TouchableOpacity key={item} onPress={()=>anima()}>
+                    <Animated.View style={[styles.boxTerang,anime]}>
+                        <Text style={{fontSize:30,padding:'30%',}}>{item}</Text>
+                    </Animated.View>
                 </TouchableOpacity>
             </View>)
          })}

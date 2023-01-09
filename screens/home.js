@@ -19,7 +19,7 @@ export default function home({navigation}){
     }
 
     const pressHandler =() =>{
-        navigation.navigate('Top_Score');
+        navigation.push('test_layout');
     }
     const eventPressComponent =(prop)=>{
         navigation.navigate(prop)
@@ -43,7 +43,7 @@ export default function home({navigation}){
                 })}
             </Card>
             <Button 
-            title="game"
+            title="test layout"
             onPress={()=>pressHandler()}
             />
         </View>

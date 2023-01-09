@@ -1,5 +1,5 @@
-import React,{ useState, useEffect,useCallback, useMemo }from "react";
-import { StyleSheet,View , Text,TouchableOpacity, TouchableHighlight,Alert, Image, Modal, Dimensions} from "react-native";
+import React,{ useState, useEffect,useCallback, useMemo } from "react";
+import { StyleSheet,View , Text,TouchableOpacity, TouchableHighlight,Alert, ImageBackground, Modal, Dimensions,Button} from "react-native";
 import {Timer} from 'react-native-stopwatch-timer';
 import { UserList } from "./modal";
 import DataJson from '../routes/score.json'
@@ -46,18 +46,16 @@ import DataJson from '../routes/score.json'
 export default function kotak(){
 
     return(
-        <View>
-            <Card_>
-                <Text> halohgsdjfaskfashjfasfakas</Text>
-            </Card_>
-          <Dim></Dim>
+        <View style={{flex:1}}>     
+            <Coba></Coba>
+            <View style={{height:170,borderColor:'blue',borderWidth:2}}></View>
         </View>
     )
 }
 
 const window =Dimensions.get("window")
 const screen = Dimensions.get("screen")
-const Dim =()=>{
+const DimensiSize =()=>{
     const [dimention,setDimention] = useState({window,screen})
     useEffect(()=>{
         const sub = Dimensions.addEventListener("change",
@@ -96,63 +94,161 @@ const Dim =()=>{
 }
 
 
-const Anu =()=>{
-    const [Menu,setMenu] = useState ([
-        {name:'Mulai',key:'1'},
-        {name:'Top Score',key:'2'},
-        {name:'Setting',key:'3'},
-        {name:'About Game',key:'4'}
-      ])
-
-    return(
-      <View>
-        {Menu.map((item)=>{
-            return(
-                <TouchableOpacity key={item.key}>
-                    <View style={{height:50,width:130,backgroundColor:'yellow', margin:5,}}>
-                        <Text> {item.name}</Text>
-                     </View>
-                </TouchableOpacity>
-            )
-        })}
-      </View>
-    )
-}
-
 function Coba({}){
     const Grid_hor =(prop)=>{
-        var d1 = 'red'
+        const backColor = prop.backColor || null
         return(
-        <View style={{backgroundColor:prop.color, flex:1,borderBottomWidth:1,borderBottomColor:'green'}}>
-            {prop.children}
-        </View>)
+            <TouchableOpacity onPress={()=>{aturkey(prop.id)}}  style={{borderBottomColor:'#fff',borderBottomWidth:1,margin:0.5,backgroundColor:backColor,flex:1}}>
+                <View style={{backgroundColor:warna(prop.id,prop.color),margin:5,flex:1}}>
+                    {prop.children}
+                </View>
+            </TouchableOpacity>
+        )
     }
+    const [on,off] = useState(false)
+    const [keys,setKey]= useState([
+        {id:'1a',value:true},
+        {id:'2a',value:true},
+        {id:'3a',value:true},
+        {id:'4a',value:true},
+        {id:'5a',value:true},
+        {id:'1b',value:true},
+        {id:'2b',value:true},
+        {id:'3b',value:true},
+        {id:'4b',value:true},
+        {id:'5b',value:true},
+        {id:'1c',value:true},
+        {id:'2c',value:true},
+        {id:'3c',value:true},
+        {id:'4c',value:true},
+        {id:'5c',value:true},
+        {id:'1d',value:true},
+        {id:'2d',value:true},
+        {id:'3d',value:true},
+        {id:'4d',value:true},
+        {id:'5d',value:true},
+    ])
+    
+    const aturkey=(id)=>{
+        const preview = keys.find((key)=>{return( key.id == id)})   //onpress bisa dibuat default atau mau dikasih fungsi sendiri
+        preview.value = !preview.value
+        setKey((prev)=>{return prev.filter(keys => keys.id != id)}) 
+        setKey((prev)=>{return [...prev,preview]})
+    }
+    const warna =(key,color)=>{
+        const preview = keys.find((id)=>{return(id.id == key)})    
+        return (!preview.value? null:color)
+    }
+    
     const Grid_ver =(prop)=>{
-        
+        const backColor = prop.color || null //'#663300'
         return(
-            <View style={{flex:1,borderRightWidth:1,borderRightColor:'blue',backgroundColor:prop.color}}>
-                {prop.children}
+            <View style={{flex:1,borderRightWidth:1,borderRightColor:'#fff',backgroundColor:backColor,margin:0.5}}>
+                    {prop.children}
             </View>
         )
     }
+    const [data,setDat]= useState([
+        
+                  [
+                    { "key":"1a", "value":"true","text":"data"},
+                    { "key":"2a", "value":"true","text":"data"},
+                    { "key":"3a", "value":"true","text":"data"},
+                    { "key":"4a", "value":"true","text":"data"}
+                  ],
+                  [
+                   { "key":"1b", "value":"true","text":"data"},
+                   { "key":"2b", "value":"true","text":"data"},
+                   { "key":"3b", "value":"true","text":"data"},
+                   { "key":"4b", "value":"true","text":"data"}
+                 ]
+       
+            /// data dibuat dengan satu objek induk dengan index data[0], untuk lebih mudah mengkases semua data. jika dipisah
+               /// kurung kurawal, akses obj = data[0],obj1 = data[1]
+       ])
+    const Algo_pengkotakan = useCallback((column, list)=>{
+        //column = prop.column    || 2
+        //list = prop.list
+        var length = list //.length
+
+        const column_row = [] //list final
+        var x = length % column
+        var row = ((length - x )/column) + 1
+        const L_row =['a','b','c','d','e','f']
+        var listRow =[] //jumlah row tiap column
+        for(var i=0;i<column;i++){
+            if(i<x){
+                listRow[i]=row
+            }else{
+                listRow[i]=row-1
+            }
+        }
+        if(listRow.some()){
+            for(var i =0; i<listRow.length;i++){
+                var r = listRow[i]
+                const apend =[]
+                for(var o = 0; o<r; o++){
+                    apend[o] = {key:(o+L_row[i]),value:true}
+                }
+                column_row.push(apend)
+            }
+        }
+        setDat (()=> {return column_row})
+    },[status])
+    const [status,setSat] =useState(0)
+   // Algo_pengkotakan(3,15)
+   // Algo_pengkotakan(column={})
+    
+    
+    const coba=()=>{
+        //var transit = data
+        //transit.push(p)
+        try {
+            var outPUT =[]
+             const p = [{ "key":"1a", "value":"true","text":"data"},{ "key":"2a", "value":"true","text":"data"},]
+        //Algo_pengkotakan(3,15,outPUT)
+
+        setDat((prev)=>{    //cara submit config baru ke objek untuk row-column
+            
+            return [...prev,p] //outPUT
+        })
+       } catch (error) {
+        Alert.alert('error')
+       }
+    }
+    const Tampil =()=>{ //sakdurungr entries mengko dimap sek
+        
+        return(
+            <View style={{flex:4, flexDirection:'row'}}>    
+                {Object.entries(data).map(([key,value])=>(
+                    <Grid_ver color={'yellow'}>
+                        {value.map((obj)=>(
+                            <Grid_hor id={obj.key} color={'#87CEEB'}>
+                                <Text> {obj.text} </Text>
+                            </Grid_hor>
+                        ))}
+                    </Grid_ver>
+                ))}
+                <Button title="coba" onPress={()=>{coba()}}/>
+            </View>
+        )
+    }
+   
+
 ///cari cara agar dapat buat card grid yang fleksibel dan bisa untuk .children
+///  view pertama width nya ingin pakai flex tapi height nya ikut kena flex
   return(
-    <View style={{height:400,width:300, borderColor:'red',borderWidth:1,flexDirection:'row'}}>
-        <View style={{flex:1,borderRightWidth:1,borderRightColor:'blue'}}>
-            <View style={{flex:1,borderBottomWidth:1,borderBottomColor:'green'}}></View>
-            <View style={{flex:1,borderBottomWidth:1,borderBottomColor:'green'}}></View>
-            <View style={{flex:1,borderBottomWidth:1,borderBottomColor:'green'}}></View>
-        </View>
-        <Grid_ver>
-            <Grid_hor></Grid_hor>
-            <Grid_hor></Grid_hor>
-            <Grid_hor></Grid_hor>
-        </Grid_ver>
-        <View style={{flex:1,borderRightWidth:1,borderRightColor:'blue'}}>
-            <View style={{flex:1,borderBottomWidth:1,borderBottomColor:'green'}}></View>
-            <View style={{flex:1,borderBottomWidth:1,borderBottomColor:'green'}}></View>
-            <View style={{flex:1,borderBottomWidth:1,borderBottomColor:'green'}}></View>
-        </View>
+    <View style={{height:450,flex:1}}>
+        <ImageBackground source={require('../assets/wood_texture.jpg')} resizeMode='cover' style={{flex:1,flexDirection:'row'}}>
+            <Grid_ver>
+                <Grid_hor id={'1a'} color={'#87CEEB'}></Grid_hor>
+                <Grid_hor id={'2a'} color={'#87CEEB'}></Grid_hor>
+                <Grid_hor id={'3a'} color={'#87CEEB'}></Grid_hor>
+                <Grid_hor id={'4a'} color={'#87CEEB'}></Grid_hor>
+            </Grid_ver>
+            
+            <Tampil></Tampil>
+        </ImageBackground>
     </View>
   )
 }
@@ -160,8 +256,11 @@ function Coba({}){
 const Card_ =(prop)=>{
     for(var i=0;i<5;i++){
         return(
-            <View style={{top:100,height:100,width:100,backgroundColor:'orange', margin:5}}>
+            <View style={{top:0,height:100,width:100,backgroundColor:'orange', margin:5}}>
+                <TouchableOpacity style={{flex:1}}>
                 {prop.children}
+
+                </TouchableOpacity>
             </View>
         )
     }
@@ -219,3 +318,5 @@ const options = {
       marginLeft: 7,
     },
   };
+
+  /**/
